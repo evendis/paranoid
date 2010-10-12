@@ -12,11 +12,13 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
     s.name = %q{paranoid}
-    s.summary = %q{Enable soft delete of ActiveRecord records. Based off defunct ActsAsParanoid and IsParanoid}
+    s.summary = %q{Soft deletion for Rails 3 ActiveRecord}
     s.email = %q{gallagher.paul@gmail.com}
     s.homepage = %q{http://github.com/tardate/paranoid/}
-    s.description = ""
-    s.authors = ["David Genord II <github@xspond.com>", "Paul Gallagher <gallagher.paul@gmail.com>"]
+    s.description = "Based on the defunct ActsAsParanoid and IsParanoid"
+    s.authors = ["David Genord II <github@xspond.com>",
+      "Philipp Ullmann <philipp.ullmann@create.at>",
+      "Paul Gallagher <gallagher.paul@gmail.com>"]
     s.add_dependency('activerecord', '~> 3.0.3')
     s.add_development_dependency('rspec', '~> 2.3.0')
     s.add_development_dependency('sqlite3', '~> 0.1.1')

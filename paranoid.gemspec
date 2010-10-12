@@ -8,14 +8,16 @@ Gem::Specification.new do |s|
   s.version = "0.0.8"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["David Genord II <github@xspond.com>", "Paul Gallagher <gallagher.paul@gmail.com>"]
-  s.date = %q{2010-12-18}
-  s.description = %q{}
+  s.authors = ["David Genord II <github@xspond.com>", "Philipp Ullmann <philipp.ullmann@create.at>", "Paul Gallagher <gallagher.paul@gmail.com>"]
+  s.date = %q{2010-12-19}
+  s.description = %q{Based on the defunct ActsAsParanoid and IsParanoid}
   s.email = %q{gallagher.paul@gmail.com}
   s.extra_rdoc_files = [
     "README.textile"
   ]
   s.files = [
+    "Gemfile",
+    "Gemfile.lock",
     "MIT-LICENSE",
     "README.textile",
     "Rakefile",
@@ -37,7 +39,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/tardate/paranoid/}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{Enable soft delete of ActiveRecord records. Based off defunct ActsAsParanoid and IsParanoid}
+  s.summary = %q{Soft deletion for Rails 3 ActiveRecord}
   s.test_files = [
     "spec/models.rb",
     "spec/paranoid_spec.rb",
