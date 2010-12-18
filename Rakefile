@@ -1,10 +1,11 @@
 require 'rake/rdoctask'
-require "spec"
-require "spec/rake/spectask"
+require 'rspec'
+require 'rspec/core/rake_task'
 
-Spec::Rake::SpecTask.new do |t|
-  t.spec_opts = ['--options', "\"#{File.dirname(__FILE__)}/spec/spec.opts\""]
-  t.spec_files = FileList['spec/**/*_spec.rb']
+
+RSpec::Core::RakeTask.new do |t|
+  t.rspec_opts = ["-c", "-f progress"]
+  t.pattern = 'spec/**/*_spec.rb'
 end
 
 begin
@@ -12,11 +13,13 @@ begin
   Jeweler::Tasks.new do |s|
     s.name = %q{paranoid}
     s.summary = %q{Enable soft delete of ActiveRecord records. Based off defunct ActsAsParanoid and IsParanoid}
-    s.email = %q{github@xspond.com}
-    s.homepage = %q{http://github.com/xspond/paranoid/}
+    s.email = %q{gallagher.paul@gmail.com}
+    s.homepage = %q{http://github.com/tardate/paranoid/}
     s.description = ""
-    s.authors = ["David Genord II"]
-    s.add_dependency('activerecord', '>= 3.0.0.beta')
+    s.authors = ["David Genord II <github@xspond.com>", "Paul Gallagher <gallagher.paul@gmail.com>"]
+    s.add_dependency('activerecord', '~> 3.0.3')
+    s.add_development_dependency('rspec', '~> 2.3.0')
+    s.add_development_dependency('sqlite3', '~> 0.1.1')
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError

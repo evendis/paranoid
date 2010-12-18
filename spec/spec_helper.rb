@@ -4,7 +4,7 @@ require 'rubygems'
 require 'active_record'
 require 'paranoid'
 require 'yaml'
-require 'spec'
+require 'rspec'
 
 $enabled = false
 
