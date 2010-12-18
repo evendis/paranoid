@@ -18,7 +18,7 @@ module Paranoid
       # only soft deleted records
       def paranoid_only_condition
         val = field_not_destroyed.respond_to?(:call) ? field_not_destroyed.call : field_not_destroyed
-        column_sql = arel_table[destroyed_field].to_sql
+        column_sql = self.sanitize_sql_for_assignment(destroyed_field)
         case val
         when nil then "#{column_sql} IS NOT NULL"
         else          ["#{column_sql} != ?", val]
@@ -69,9 +69,11 @@ module Paranoid
     end
 
     # Set the value for the destroyed field.
+    # paranoid <=0.0.9 got stomped on by ar 3.0.3/arel 2.0.6 (arel team are attempting to deprecate 'update')
+    # This change probably makes backward compatibility an issue
     def set_destroyed(val)
       self[destroyed_field] = val
-      updates = self.class.send(:sanitize_sql_for_assignment, {destroyed_field => val})
+      updates = Arel::Nodes::SqlLiteral.new(self.class.send(:sanitize_sql_for_assignment, {destroyed_field => val}))
       self.class.unscoped.with_destroyed.where(self.class.arel_table[self.class.primary_key].eq(id)).arel.update(updates)
       @destroyed = true
     end
