@@ -48,7 +48,7 @@ class Component < ActiveRecord::Base #:nodoc:
   has_many :sub_components, :dependent => :destroy
   NEW_NAME = 'Something Else!'
 
-  after_destroy :change_name
+  before_destroy :change_name
   def change_name
     self.update_attribute(:name, NEW_NAME)
   end
@@ -144,6 +144,16 @@ class UndestroyablePirate < ActiveRecord::Base #:nodoc:
   before_destroy :ret_false
   def ret_false
     false
+  end
+end
+
+class ZombiePirate < ActiveRecord::Base #:nodoc:
+  set_table_name :pirates
+  NEW_NAME = 'Undead rising!'
+
+  after_destroy :change_name
+  def change_name
+    self.update_attribute(:name, NEW_NAME)
   end
 end
 

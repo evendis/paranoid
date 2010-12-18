@@ -4,24 +4,6 @@ require File.expand_path(File.dirname(__FILE__) + '/models')
 LUKE = 'Luke Skywalker'
 
 describe Paranoid do
-  before(:each) do
-    # Sticker.delete_all
-    # Place.delete_all
-    # Android.delete_all
-    # Person.delete_all
-    # Component.delete_all
-    #
-    # @luke = Person.create(:name => LUKE)
-    # @r2d2 = Android.create(:name => 'R2D2', :owner_id => @luke.id)
-    # @c3p0 = Android.create(:name => 'C3P0', :owner_id => @luke.id)
-    #
-    # @r2d2.components.create(:name => 'Rotors')
-    #
-    # @r2d2.memories.create(:name => 'A pretty sunset')
-    # @c3p0.sticker = Sticker.create(:name => 'OMG, PONIES!')
-    # @tatooine = Place.create(:name => "Tatooine")
-    # @r2d2.places << @tatooine
-  end
 
   describe 'basic functionality' do
     before(:each) do
@@ -268,6 +250,17 @@ describe Paranoid do
       pirate = RandomPirate.create!(:name => 'Roberts')
       lambda { pirate.destroy rescue nil }.should_not change(RandomPirate, :count)
     end
+
+    it 'should allow updates in before_destroy callbacks' do
+      Component.create!(:name => 'bolt').destroy
+      Component.with_destroyed_only.first.name.should eql(Component::NEW_NAME)
+    end
+
+    it 'should not allow updates in after_destroy callbacks' do
+      soon_to_be_undead = ZombiePirate.create!(:name => 'But I feel fine!')
+      lambda { soon_to_be_undead.destroy }.should raise_error
+    end
+
   end
   
   describe 'association destroy' do
