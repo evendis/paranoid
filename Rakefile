@@ -19,7 +19,7 @@ begin
     s.authors = ["David Genord II <github@xspond.com>",
       "Philipp Ullmann <philipp.ullmann@create.at>",
       "Paul Gallagher <gallagher.paul@gmail.com>"]
-    s.add_dependency('activerecord', '~> 3.0.4')
+    s.add_dependency('activerecord', '~> 3.0.3')
     s.add_development_dependency('rspec', '~> 2.3.0')
     s.add_development_dependency('sqlite3', '~> 0.1.1')
   end
