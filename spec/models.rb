@@ -167,3 +167,20 @@ class Uuid < ActiveRecord::Base #:nodoc:
 
   paranoid
 end
+
+class Crew < ActiveRecord::Base #:nodoc:
+end
+class Ship < ActiveRecord::Base #:nodoc:
+  paranoid
+  has_many :ships_crews, :class_name => 'ShipsCrews', :dependent => :destroy
+  has_many :crews, :through => :ships_crews
+  attr_accessor :allow_destroy
+  before_destroy :allowed?
+  def allowed?
+    @allow_destroy
+  end
+end
+class ShipsCrews < ActiveRecord::Base #:nodoc:
+  belongs_to :ship
+  belongs_to :crew
+end

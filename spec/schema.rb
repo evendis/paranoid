@@ -83,4 +83,21 @@ ActiveRecord::Schema.define do
     t.datetime "deleted_at"
   end
 
+  create_table "crews", :force => true do |t|
+    t.string   "name"
+    t.datetime "deleted_at"
+  end
+
+  create_table "ships", :force => true do |t|
+    t.string   "name"
+    t.datetime "deleted_at"
+  end
+
+  create_table "ships_crews", :force => true do |t|
+    t.integer  "ship_id"
+    t.integer  "crew_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
 end

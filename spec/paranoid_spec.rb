@@ -261,6 +261,22 @@ describe Paranoid do
       lambda { soon_to_be_undead.destroy }.should raise_error
     end
 
+    describe 'has_many :through associations with :dependent => :destroy' do
+      it 'should not destroy the association when before_destroy returns false [GH#5]' do
+        pending "currently fails - yet to figure out how to fix this"
+        ship = Ship.create!(:name => 'Mary Celeste')
+        ship.crews << Crew.create!(:name => 'Roberts')
+        ship.allow_destroy = false
+        expect { ship.destroy }.to change { ShipsCrews.count }.by(0)
+      end
+      it 'should destroy the association when before_destroy returns true' do
+        ship = Ship.create!(:name => 'Titanic')
+        ship.crews << Crew.create!(:name => 'Roberts')
+        ship.allow_destroy = true
+        expect { ship.destroy }.to change { ShipsCrews.count }.by(-1)
+      end
+    end
+
   end
   
   describe 'association destroy' do
