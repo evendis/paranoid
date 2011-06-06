@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.4'
+gem 'rails', '3.0.7'
 gem 'jeweler', '~> 1.5.1', :group => :development
 group :test do
   gem 'rspec', '~> 2.3.0', :require => 'spec'
