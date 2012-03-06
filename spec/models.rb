@@ -78,7 +78,11 @@ class Sticker < ActiveRecord::Base #:nodoc:
 end
 
 class AndroidWithScopedUniqueness < ActiveRecord::Base #:nodoc:
-  set_table_name :androids
+  if ::ActiveRecord::VERSION::STRING =~ /^3.2/
+    self.table_name = :androids
+  else
+    set_table_name :androids
+  end
   validates_uniqueness_of :name, :scope => :deleted_at
   paranoid
 end
@@ -124,12 +128,20 @@ class Pirate < ActiveRecord::Base #:nodoc:
 end
 
 class DeadPirate < ActiveRecord::Base #:nodoc:
-  set_table_name :pirates
+  if ::ActiveRecord::VERSION::STRING =~ /^3.2/
+    self.table_name = :pirates
+  else
+    set_table_name :pirates
+  end
   paranoid :field => :alive, :destroyed_value => true, :not_destroyed_value => false
 end
 
 class RandomPirate < ActiveRecord::Base #:nodoc:
-  set_table_name :pirates
+  if ::ActiveRecord::VERSION::STRING =~ /^3.2/
+    self.table_name = :pirates
+  else
+    set_table_name :pirates
+  end
 
   after_destroy :raise_an_error
   def raise_an_error
@@ -138,7 +150,11 @@ class RandomPirate < ActiveRecord::Base #:nodoc:
 end
 
 class UndestroyablePirate < ActiveRecord::Base #:nodoc:
-  set_table_name :pirates
+  if ::ActiveRecord::VERSION::STRING =~ /^3.2/
+    self.table_name = :pirates
+  else
+    set_table_name :pirates
+  end
   paranoid :field => :alive, :destroyed_value => false, :not_destroyed_value => true
 
   before_destroy :ret_false
@@ -148,7 +164,11 @@ class UndestroyablePirate < ActiveRecord::Base #:nodoc:
 end
 
 class ZombiePirate < ActiveRecord::Base #:nodoc:
-  set_table_name :pirates
+  if ::ActiveRecord::VERSION::STRING =~ /^3.2/
+    self.table_name = :pirates
+  else
+    set_table_name :pirates
+  end
   NEW_NAME = 'Undead rising!'
 
   after_destroy :change_name
@@ -158,7 +178,11 @@ class ZombiePirate < ActiveRecord::Base #:nodoc:
 end
 
 class Uuid < ActiveRecord::Base #:nodoc:
-  set_primary_key "uuid"
+  if ::ActiveRecord::VERSION::STRING =~ /^3.2/
+    self.primary_key = "uuid"
+  else
+    set_primary_key "uuid"
+  end
 
   before_create :set_uuid
   def set_uuid
