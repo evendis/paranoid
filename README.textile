@@ -8,6 +8,25 @@ h3. How did I get here?
 
 Sometimes you want to delete something in ActiveRecord, but you realize you might need it later (for an undo feature, or just as a safety net, etc.). There are a plethora of plugins that accomplish this, the most famous of which was the venerable acts_as_paranoid which is great but not really actively developed any more. What's more, acts_as_paranoid was written for an older version of ActiveRecord. Is_paranoid was written for ActiveRecord 2.3 and default_scope. This however became, as the author stated, a mess of hacks to catch all the edge cases. *Paranoid* is an attempt to utilize ActiveRecord::Relation and JoinDependency in ActiveRecord 3 to do all the heavy lifting without using default_scope and with_exclusive_scope.
 
+h3. Installation
+
+The original gem (available thru rubygems) was written when Rails 3 first came on the scene. This works with the following in your Gemfile, (you may want to change the version number).
+
+<pre>
+gem "paranoid", :require => 'paranoid', :version => ">= 0.0.7"
+</pre>
+
+As Rails has marched on, various forks have arisen to deal with the changes in underlying ActiveRecord. Notably:
+
+* https://github.com/create-philipp-ullmann/paranoid (distributed as "paranoid_create" on rubygems, and updated to activerecord 3.1)
+  <pre>
+  gem "paranoid_create", :require => 'paranoid', :version => ">= 0.1.0"
+  </pre>
+* https://github.com/evendis/paranoid (updated to activerecord 3.2)
+  <pre>
+  gem "paranoid", :require => 'paranoid', :git => 'git://github.com/evendis/paranoid', :branch => 'rails32'
+  </pre>
+
 h3. How does it work?
 
 You should read the specs, or the RDOC, or even the source itself (which is very readable), but for the lazy, here's the hand-holding:
@@ -15,12 +34,6 @@ You should read the specs, or the RDOC, or even the source itself (which is very
 You need ActiveRecord 3 and you need to properly install this gem.  Then you need a model with a field to serve as a flag column on its database table. For this example we'll use a timestamp named "deleted_at".  If that column is null, the item isn't deleted.  If it has a timestamp, it should count as deleted.
 
 So let's assume we have a model Automobile that has a deleted_at column on the automobiles table.
-
-If you're working with Rails, in your Gemfile, add the following (you may want to change the version number).
-
-<pre>
-gem "paranoid", :require => 'paranoid', :version => ">= 0.1.0"
-</pre>
 
 Then in your ActiveRecord model
 
@@ -100,9 +113,38 @@ end
 
 And now the validates_uniqueness_of will ignore items that are destroyed.
 
-h3. and you may ask yourself, where does that highway go to?
+h3. and you may ask yourself, where does that highway go to? .. contributing to paranoid
 
 If you find any bugs, have any ideas of features you think are missing, or find things you're like to see work differently, feel free to file an issue or send a pull request.
+
+* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
+* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
+* Fork the project
+* Start a feature/bugfix branch
+* Commit and push until you are happy with your contribution
+* Make sure to add tests for it. This is important so your changes don't get unintentionally broken in a future version.
+* Please try not to mess with the Rakefile, version, gemspec or changelog. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so the mater repository maintainer can cherry-pick around it.
+
+h3. Setting up development environment
+
+rvm or similar is recommended to partition a development environment.
+An .rvmrc file is not included in the project by default.
+
+Use bundler to install requirements:
+
+<pre>
+$ bundle install
+</pre>
+
+h3. Running Tests
+
+<pre>
+$ rake spec
+# or..
+$ bundle exec rake spec
+</pre>
+
+NB: 'spec' is actually the default rake task.
 
 h3. Thanks
 
