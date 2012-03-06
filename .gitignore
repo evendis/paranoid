@@ -1,2 +1,6 @@
 paranoid.db
-.rvmrc
+.rvmrc*
+pkg
+vendor
+nbproject
+.bundle
